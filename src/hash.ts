@@ -65,11 +65,11 @@ export async function hash({ path, verbose = false }: HashOptions) {
     .sort(([lhs], [rhs]) => lhs > rhs ? 1 : -1)
     .map(([_, workspace]) => {
       const workspacePath = resolve(rootpath, workspace.location)
-      const result = getGitCommitHash(workspacePath)
+      const commitHash = getGitCommitHash(workspacePath)
       if (verbose) {
-        console.log(`HASH "${workspace.location}"=${result}`)
+        console.log(`[hash-workspace] "${workspacePath}"=${commitHash}`)
       }
-      return result
+      return commitHash
     })
 
   return crypto.createHash('md5')
@@ -79,7 +79,7 @@ export async function hash({ path, verbose = false }: HashOptions) {
 }
 
 function getGitCommitHash(path: string) {
-  const output = execSync(`git --no-pager log --pretty=tformat:"%h" -n1 ${path}`, {
+  const output = execSync(`git --no-pager log --pretty=tformat:"%H" -n1 ${path}`, {
     encoding: 'utf8',
     cwd: path,
   })
