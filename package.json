@@ -1,7 +1,8 @@
 {
   "name": "hash-workspace",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "lib",
+  "types": "src",
   "repository": "pawsong/hash-workspace",
   "bin": {
     "hash-workspace": "lib/cli.js"
