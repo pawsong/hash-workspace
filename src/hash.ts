@@ -79,7 +79,7 @@ export async function hash({ path, verbose = false }: HashOptions) {
 }
 
 function getGitCommitHash(path: string) {
-  const output = execSync(`git --no-pager log --pretty=tformat:"%H" -n1 ${path}`, {
+  const output = execSync(`git rev-list -1 HEAD -- ${path}`, {
     encoding: 'utf8',
     cwd: path,
   })
