@@ -17,6 +17,8 @@ interface WorkspaceInfoResultItem {
 }
 
 export async function hash({ path }: HashOptions) {
+  path = resolve(process.cwd(), path)
+
   const pkgName = resolve(path, 'package.json')
   const pkg = require(pkgName)
   if (!pkg.name) {
