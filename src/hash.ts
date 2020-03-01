@@ -6,6 +6,7 @@ import findWorkspaceRoot from 'find-yarn-workspace-root'
 
 interface HashOptions {
   path: string
+  verbose?: boolean
 }
 
 type WorkspaceInfoResult = Record<string, WorkspaceInfoResultItem>
@@ -16,7 +17,7 @@ interface WorkspaceInfoResultItem {
   mismatchedworkspaceDependencies: string[]
 }
 
-export async function hash({ path }: HashOptions) {
+export async function hash({ path, verbose = false }: HashOptions) {
   path = resolve(process.cwd(), path)
 
   const pkgName = resolve(path, 'package.json')
@@ -64,7 +65,11 @@ export async function hash({ path }: HashOptions) {
     .sort(([lhs], [rhs]) => lhs > rhs ? 1 : -1)
     .map(([_, workspace]) => {
       const workspacePath = resolve(rootpath, workspace.location)
-      return getGitCommitHash(workspacePath)
+      const result = getGitCommitHash(workspacePath)
+      if (verbose) {
+        console.log(`HASH "${workspace.location}"=${result}`)
+      }
+      return result
     })
 
   return crypto.createHash('md5')
