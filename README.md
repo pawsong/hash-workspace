@@ -1,0 +1,5 @@
+# hash-workspace
+
+## License
+
+MIT

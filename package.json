@@ -1,0 +1,30 @@
+{
+  "name": "hash-workspace",
+  "version": "0.1.0",
+  "main": "lib",
+  "repository": "pawsong/hash-workspace",
+  "bin": {
+    "hash-workspace": "lib/cli.js"
+  },
+  "license": "MIT",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "scripts": {
+    "clean": "rimraf lib",
+    "build": "tsc --project tsconfig.build.json",
+    "prepublish": "yarn clean && yarn build"
+  },
+  "dependencies": {
+    "@types/node": "^13.7.4",
+    "@types/rimraf": "^2.0.3",
+    "find-yarn-workspace-root": "^1.2.1",
+    "meow": "^6.0.1",
+    "strip-ansi": "^6.0.0"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2",
+    "typescript": "^3.8.2"
+  }
+}
